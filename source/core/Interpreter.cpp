@@ -163,12 +163,20 @@ Interpreter::~Interpreter() {
 
 Session* Interpreter::createMultiPathSession(const std::vector<ScheduleConfig>& configs) {
     RuntimeInfo runtime = createRuntime(configs);
+    if (runtime.first.empty()) {
+        MNN_ERROR("Runtime not valid for create session\n");
+        return nullptr;
+    }
     return createMultiPathSession(configs, std::move(runtime));
 }
 
 Session* Interpreter::createMultiPathSession(const std::vector<ScheduleConfig>& configs, const RuntimeInfo& runtime) {
     if (nullptr == mNet->buffer.get()) {
         MNN_ERROR("The model buffer has been released. Can't create session\n");
+        return nullptr;
+    }
+    if (runtime.first.empty()) {
+        MNN_ERROR("Runtime not valid for create session\n");
         return nullptr;
     }
     std::unique_lock<std::mutex> _l(mNet->lock);
@@ -399,7 +407,7 @@ ErrorCode Interpreter::updateSessionToModel(Session* session) {
     return session->updateToModel((Net*)mNet->net);
 }
 
-bool Interpreter::getSesionInfo(const Session* session, SessionInfoCode code, void* ptr) {
+bool Interpreter::getSessionInfo(const Session* session, SessionInfoCode code, void* ptr) {
     std::unique_lock<std::mutex> _l(mNet->lock);
     if (nullptr == session || nullptr == ptr) {
         return true;
