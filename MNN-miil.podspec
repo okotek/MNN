@@ -37,7 +37,7 @@ Pod::Spec.new do |s|
                           schema/generate.sh
                           python source/backend/metal/MetalCodeGen.py source/backend/metal/ source/backend/metal/MetalOPRegister.mm
                       CMD
-  s.source = {:git => "/Users/zhang/Development/AliNNPrivate/",:branch=> 'head'}
+  s.source = {:git => "https://github.com/okotek/MNN.git",:branch=> '1.1.0-miil'}
   s.frameworks = 'Metal', 'Accelerate'
   s.library = 'c++'
   s.source_files = \
