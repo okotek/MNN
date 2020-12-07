@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
-  s.name         = "MNN"
+  s.name         = "MNN-miil"
   s.version      = "1.1.0"
-  s.summary      = "MNN"
+  s.summary      = "MNN MIIL variation"
 
   s.description  = <<-DESC
                     MNN is a lightweight deep neural network inference framework. It loads models and do inference on devices.
